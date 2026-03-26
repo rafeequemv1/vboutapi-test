@@ -1,6 +1,8 @@
 const path = require("path");
 const express = require("express");
 const multer = require("multer");
+const fs = require("fs");
+const { put } = require("@vercel/blob");
 
 function getPublicUrl(req, filename) {
   const configuredBase = String(process.env.PUBLIC_BASE_URL || "").trim();
@@ -13,18 +15,15 @@ function getPublicUrl(req, filename) {
 
 const uploadsDir = path.join(__dirname, "../../uploads");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadsDir),
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname || "").toLowerCase();
-    const safeExt = ext && ext.length <= 10 ? ext : "";
-    const unique = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-    cb(null, `media-${unique}${safeExt}`);
-  },
-});
+function makeFilename(originalName) {
+  const ext = path.extname(originalName || "").toLowerCase();
+  const safeExt = ext && ext.length <= 10 ? ext : "";
+  const unique = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  return `media-${unique}${safeExt}`;
+}
 
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
   limits: {
     fileSize: 25 * 1024 * 1024, // 25MB
   },
@@ -38,25 +37,47 @@ const upload = multer({
 const router = express.Router();
 
 router.post("/api/upload", upload.array("media", 10), (req, res) => {
-  try {
+  (async () => {
     const files = req.files || [];
     if (!Array.isArray(files) || files.length === 0) {
       res.status(400).json({ ok: false, error: "No media file uploaded." });
       return;
     }
 
-    res.json({
-      ok: true,
-      files: files.map((f) => ({
-        url: getPublicUrl(req, f.filename),
+    const useBlob = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+    fs.mkdirSync(uploadsDir, { recursive: true });
+
+    const out = [];
+    for (const f of files) {
+      const filename = makeFilename(f.originalname || "");
+      let url;
+      if (useBlob) {
+        const blob = await put(`uploads/${filename}`, f.buffer, {
+          access: "public",
+          contentType: f.mimetype || "application/octet-stream",
+        });
+        url = blob.url;
+      } else {
+        const filepath = path.join(uploadsDir, filename);
+        fs.writeFileSync(filepath, f.buffer);
+        url = getPublicUrl(req, filename);
+      }
+
+      out.push({
+        url,
         originalName: f.originalname,
         mimeType: f.mimetype,
         size: f.size,
-      })),
+      });
+    }
+
+    res.json({
+      ok: true,
+      files: out,
     });
-  } catch (err) {
+  })().catch((err) => {
     res.status(400).json({ ok: false, error: err?.message || "Upload failed" });
-  }
+  });
 });
 
 module.exports = { router };
