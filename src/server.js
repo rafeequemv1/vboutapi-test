@@ -26,9 +26,13 @@ app.use(socialMediaRouter);
 app.use(uploadRouter);
 app.use(firecrawlRouter);
 
-const port = Number(process.env.PORT) || 3000;
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`VBOUT Social Poster listening on http://localhost:${port}`);
-});
+if (require.main === module) {
+  const port = Number(process.env.PORT) || 3000;
+  app.listen(port, () => {
+    // eslint-disable-next-line no-console
+    console.log(`VBOUT Social Poster listening on http://localhost:${port}`);
+  });
+}
+
+module.exports = app;
 
