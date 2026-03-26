@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VBOUT Social Poster</title>
+    <style>
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(1000px 700px at 0% 0%, rgba(255, 228, 234, 0.65) 0%, transparent 60%),
+          radial-gradient(900px 700px at 100% 10%, rgba(217, 243, 255, 0.7) 0%, transparent 60%),
+          linear-gradient(180deg, #f8fafc 0%, #ffffff 70%);
+        color: #0f172a;
+      }
+
+      .appShell {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        padding: 18px 14px;
+        border-right: 1px solid rgba(15, 23, 42, 0.08);
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        margin-bottom: 18px;
+      }
+
+      .nav {
+        display: grid;
+        gap: 6px;
+        margin-top: 12px;
+      }
+
+      .nav a {
+        text-decoration: none;
+        color: #0f172a;
+        padding: 10px 10px;
+        border-radius: 12px;
+        border: 1px solid transparent;
+        font-weight: 750;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav a.active {
+        background: rgba(2, 6, 23, 0.04);
+        border-color: rgba(15, 23, 42, 0.10);
+      }
+
+      .content {
+        padding: 26px 18px 60px;
+        max-width: 1180px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .titleRow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin-top: 8px;
+        color: rgba(15, 23, 42, 0.65);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 10px 35px rgba(2, 6, 23, 0.06);
+        border-radius: 16px;
+        padding: 16px;
+        backdrop-filter: blur(10px);
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 14px;
+        margin-top: 14px;
+      }
+
+      .phone {
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 12px;
+        box-shadow: 0 14px 30px rgba(2, 6, 23, 0.08);
+        position: sticky;
+        top: 18px;
+        height: fit-content;
+      }
+
+      .phoneInner {
+        border: 1px solid rgba(15, 23, 42, 0.10);
+        border-radius: 18px;
+        overflow: hidden;
+        background: white;
+      }
+
+      .phoneHeader {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 800;
+        font-size: 12px;
+      }
+
+      .phoneMedia {
+        width: 100%;
+        height: 300px;
+        background: rgba(15, 23, 42, 0.03);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .phoneMedia img,
+      .phoneMedia video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .phoneBody {
+        padding: 12px;
+        font-size: 12px;
+        color: #0f172a;
+        white-space: pre-wrap;
+        line-height: 1.35;
+      }
+
+      label {
+        display: block;
+        margin-top: 12px;
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      .field {
+        margin-top: 8px;
+      }
+
+      input[type="text"],
+      input[type="url"],
+      input[type="number"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 11px 12px;
+        margin-top: 6px;
+        box-sizing: border-box;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.95);
+        outline: none;
+      }
+      input[type="text"]:focus,
+      input[type="url"]:focus,
+      input[type="number"]:focus,
+      textarea:focus,
+      select:focus {
+        border-color: rgba(37, 99, 235, 0.45);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10);
+      }
+
+      textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .row3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .btn {
+        margin-top: 16px;
+        padding: 11px 14px;
+        cursor: pointer;
+        border: 0;
+        border-radius: 12px;
+        font-weight: 700;
+        color: white;
+        background: #0f172a;
+        box-shadow: 0 10px 20px rgba(2, 6, 23, 0.18);
+      }
+
+      .btn.secondary {
+        background: rgba(15, 23, 42, 0.06);
+        color: #0f172a;
+        box-shadow: none;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+      }
+
+      .btn.ghost {
+        background: rgba(15, 23, 42, 0.04);
+        color: #0f172a;
+        box-shadow: none;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+      }
+
+      .status {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        background: rgba(255, 255, 255, 0.75);
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .hint {
+        margin-top: 6px;
+        font-size: 12px;
+        color: rgba(15, 23, 42, 0.6);
+        font-weight: normal;
+        line-height: 1.35;
+      }
+
+      @media (max-width: 980px) {
+        .appShell {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          position: sticky;
+          top: 0;
+          z-index: 10;
+          border-right: 0;
+          border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .nav {
+          grid-auto-flow: column;
+          grid-auto-columns: max-content;
+          overflow: auto;
+          gap: 8px;
+          margin-top: 0;
+        }
+        .split {
+          grid-template-columns: 1fr;
+        }
+        .phone {
+          position: static;
+        }
+      }
+
+      .mediaBox {
+        border: 1px dashed rgba(15, 23, 42, 0.22);
+        border-radius: 14px;
+        padding: 14px;
+        background: rgba(255, 255, 255, 0.6);
+        margin-top: 10px;
+      }
+
+      .mediaDrop {
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 14px;
+        display: grid;
+        gap: 6px;
+      }
+
+      .mediaDrop.dragover {
+        border-color: rgba(37, 99, 235, 0.45);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10);
+      }
+
+      .mediaDropTitle {
+        font-weight: 850;
+        letter-spacing: -0.01em;
+        font-size: 13px;
+      }
+
+      .mediaDropHint {
+        font-size: 12px;
+        color: rgba(15, 23, 42, 0.6);
+        line-height: 1.35;
+      }
+
+      .mediaDropActions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-top: 6px;
+      }
+
+      .mediaAdvanced {
+        margin-top: 10px;
+      }
+
+      .mediaAdvanced summary {
+        cursor: pointer;
+        font-weight: 750;
+        color: rgba(15, 23, 42, 0.72);
+        font-size: 12px;
+      }
+
+      .previewRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .chipRow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .chip {
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        background: rgba(255, 255, 255, 0.8);
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 650;
+        color: #0f172a;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .kbd {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-size: 12px;
+        padding: 2px 6px;
+        border: 1px solid rgba(15, 23, 42, 0.14);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.8);
+      }
+
+      .icon {
+        width: 26px;
+        height: 26px;
+        flex: 0 0 auto;
+      }
+
+      .tweetListItem textarea {
+        min-height: 90px;
+      }
+
+      .mediaGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .mediaTile {
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        border-radius: 14px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.85);
+      }
+
+      .mediaTile.selected {
+        outline: 3px solid rgba(37, 99, 235, 0.35);
+      }
+
+      .mediaThumb {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        display: block;
+        background: rgba(15, 23, 42, 0.03);
+      }
+
+      .mediaMeta {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .mediaName {
+        font-size: 12px;
+        color: #0f172a;
+        font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .calendarGrid {
+        margin-top: 14px;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+      }
+
+      .calendarHeaderRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .calendarTitle {
+        font-weight: 900;
+        letter-spacing: -0.02em;
+      }
+
+      .calendarCell {
+        min-height: 110px;
+        border: 1px solid rgba(15, 23, 42, 0.10);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.78);
+        padding: 10px;
+      }
+
+      .calendarDay {
+        font-weight: 800;
+        font-size: 12px;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .calendarBadge {
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(37, 99, 235, 0.22);
+        background: rgba(37, 99, 235, 0.10);
+        color: #1d4ed8;
+        font-weight: 800;
+      }
+
+      .calendarItem {
+        margin-top: 8px;
+        padding: 8px 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(15, 23, 42, 0.10);
+        background: rgba(255, 255, 255, 0.9);
+        font-size: 12px;
+        line-height: 1.25;
+      }
+
+      .codeArea {
+        width: 100%;
+        min-height: 260px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .console {
+        margin-top: 12px;
+        padding: 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(15, 23, 42, 0.10);
+        background: rgba(2, 6, 23, 0.04);
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-size: 12px;
+      }
+
+      .timeline {
+        margin-top: 12px;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 10px;
+      }
+
+      .timelineItem {
+        font-size: 12px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: rgba(15, 23, 42, 0.03);
+        margin-top: 6px;
+        white-space: pre-wrap;
+      }
+
+      .jobTemplate {
+        margin-top: 12px;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 12px;
+      }
+
+      .jobPreviewWrap {
+        margin-top: 10px;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        border-radius: 14px;
+        padding: 10px;
+        background: rgba(2, 6, 23, 0.03);
+      }
+
+      .jobPreviewImg {
+        width: 100%;
+        max-width: 720px;
+        border-radius: 12px;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        display: block;
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="appShell">
+      <aside class="sidebar">
+        <div class="brand">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 13.5C6 10.4624 8.46243 8 11.5 8H18V15.5C18 18.5376 15.5376 21 12.5 21H11.5C8.46243 21 6 18.5376 6 15.5V13.5Z" stroke="#2563eb" stroke-width="2"/>
+            <path d="M8 8V6.7C8 5.208 9.208 4 10.7 4H16.9" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18 12H21" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          VBOUT Planner
+        </div>
+        <div class="nav">
+          <a href="#" class="navLink active" data-tab="compose">Composer</a>
+          <a href="#" class="navLink" data-tab="calendar">Calendar</a>
+          <a href="#" class="navLink" data-tab="stats">Analytics</a>
+          <a href="#" class="navLink" data-tab="manage">Manage</a>
+          <a href="#" class="navLink" data-tab="firecrawl">Firecrawl</a>
+          <a href="#" class="navLink" data-tab="automation">Automation</a>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="header">
+          <div class="titleRow">
+            <div>
+              <h1>Draft your next post.</h1>
+              <div class="subtitle">
+                Minimal composer with live preview. Posts are sent via <span class="kbd">SocialMedia/AddPost</span>.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+        
+        <div id="tabCompose">
+          <div class="split">
+            <form id="postForm">
+              <label for="channel">Channel</label>
+              <select id="channel" name="channel" required style="margin-top: 8px;">
+                <option value="" selected>Loading connected accounts...</option>
+              </select>
+
+            <div class="row">
+              <div>
+                <label for="accountid">Connected Account</label>
+                <select id="accountid" name="accountid" required>
+                  <option value="" selected>Select a connected account...</option>
+                </select>
+                <div class="hint">
+                  We auto-set <span class="kbd">channelid</span> from the connected account you select.
+                </div>
+              </div>
+              <div>
+                <label>VBOUT channelid</label>
+                <input id="channelid" name="channelid" type="text" disabled placeholder="Auto-filled" />
+                <input id="channelidHidden" name="channelid" type="hidden" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="message" style="margin-top: 6px;">Your post</label>
+              <div class="hint">Write your content once. Add images/videos below.</div>
+            </div>
+
+            <div id="singleMessageBlock">
+              <textarea id="message" name="message" placeholder="Write your post..." required></textarea>
+            </div>
+
+            <div id="threadBlock" class="hidden">
+              <div class="row3" style="margin-top: 10px;">
+                <div>
+                  <label for="threadIntervalMinutes" style="margin-top: 0;">Interval (minutes)</label>
+                  <input id="threadIntervalMinutes" name="threadIntervalMinutes" type="number" min="1" max="120" value="2" />
+                  <div class="hint">Time between each post in the sequence.</div>
+                </div>
+                <div style="grid-column: span 2;">
+                  <label style="margin-top: 0;">Sequence items</label>
+                  <div class="hint" style="margin-top: 4px;">
+                    Add messages in order. When scheduled, the app offsets each item by the interval.
+                  </div>
+                </div>
+              </div>
+
+              <div id="tweetList" style="margin-top: 12px;">
+                <!-- items injected by JS -->
+              </div>
+              <div class="row" style="margin-top: 10px;">
+                <button id="addTweetBtn" class="btn ghost" type="button">Add another item</button>
+                <button id="removeTweetBtn" class="btn ghost" type="button">Remove last</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Media</label>
+              <div class="mediaBox">
+                <div id="mediaDrop" class="mediaDrop" tabindex="0" role="button" aria-label="Add media">
+                  <div class="mediaDropTitle">Add image or video</div>
+                  <div class="mediaDropHint">Drag & drop files here, or browse from your device.</div>
+                  <div class="mediaDropActions">
+                    <button id="mediaPickBtn" type="button" class="btn ghost" style="margin-top:0; padding: 8px 12px;">Browse files</button>
+                    <span class="hint" style="margin:0;">Up to 10 files. Click a tile to set the primary attachment.</span>
+                  </div>
+                  <input id="mediaFile" name="mediaFile" type="file" accept="image/*,video/*" multiple class="hidden" />
+                </div>
+
+                <details class="mediaAdvanced">
+                  <summary>Add from URL (optional)</summary>
+                  <label for="photoUrl" style="margin-top: 10px;">Media URL</label>
+                  <input id="photoUrl" name="photoUrl" type="url" placeholder="https://example.com/media.jpg" />
+                  <div class="hint">If you upload files, this can be left empty.</div>
+                </details>
+
+                <div class="previewRow">
+                  <div id="mediaPreview" class="hint" style="margin-top:0;">No media selected.</div>
+                  <button id="clearMediaBtn" type="button" class="btn ghost" style="margin-top:0;">Clear</button>
+                </div>
+
+                <div id="mediaGrid" class="mediaGrid hidden"></div>
+
+                <input id="photo" name="photo" type="hidden" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="trackableLinks">Trackable links</label>
+                <div style="margin-top: 8px;">
+                  <input id="trackableLinks" name="trackableLinks" type="checkbox" />
+                  <span class="hint" style="margin:0 0 0 8px;">Convert links in your post to short URLs.</span>
+                </div>
+              </div>
+              <div>
+                <label>Send Mode</label>
+                <div style="margin-top: 8px; display: flex; gap: 18px; align-items:center;">
+                  <label style="display:inline; font-weight: 650;">
+                    <input type="radio" name="sendMode" value="immediate" checked />
+                    Immediate
+                  </label>
+                  <label style="display:inline; font-weight: 650;">
+                    <input type="radio" name="sendMode" value="scheduled" />
+                    Scheduled
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div id="scheduledControls" class="hidden">
+              <div class="row" style="margin-top: 14px;">
+                <div>
+                  <label for="scheduledDate">Scheduled Date</label>
+                  <input id="scheduledDate" name="scheduledDate" type="date" />
+                </div>
+                <div>
+                  <label for="scheduledTime">Scheduled Time</label>
+                  <input id="scheduledTime" name="scheduledTime" type="time" />
+                </div>
+              </div>
+              <div class="hint">Use local time. Each thread post can be offset by an interval.</div>
+            </div>
+
+            <div class="field">
+              <label>Twitter sequence</label>
+              <div style="margin-top: 8px; display:flex; gap: 18px; align-items:center;">
+                <label style="display:inline; font-weight: 650;">
+                  <input id="threadMode" type="checkbox" />
+                  Post as a sequence (multiple tweets)
+                </label>
+                <div class="hint" style="margin:0;">
+                  This schedules/sends multiple posts in order (not a reply-chain “true thread”).
+                </div>
+              </div>
+            </div>
+
+              <button class="btn" type="submit">Post (or schedule)</button>
+            </form>
+
+            <div class="phone" aria-label="Preview">
+              <div class="phoneInner">
+                <div class="phoneHeader">
+                  <span>Preview</span>
+                  <span id="previewChannel" class="calendarBadge">—</span>
+                </div>
+                <div id="previewMedia" class="phoneMedia">
+                  <div class="hint">No media</div>
+                </div>
+                <div id="previewText" class="phoneBody">Write a message to preview…</div>
+              </div>
+              <div class="hint" style="margin-top: 10px;">
+                Video posting is attempted for all profiles by sending the media URL via VBOUT’s <span class="kbd">photo</span> field.
+                If a specific channel rejects video, the API will return an error.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tabCalendar" class="hidden">
+          <div class="calendarHeaderRow">
+            <div class="calendarTitle" id="calendarTitle">Calendar</div>
+            <div style="display:flex; gap: 10px;">
+              <button id="calPrevBtn" type="button" class="btn ghost" style="margin-top:0;">Prev</button>
+              <button id="calNextBtn" type="button" class="btn ghost" style="margin-top:0;">Next</button>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px;">
+            <div>
+              <label for="calendarChannels">Calendar channels</label>
+              <select id="calendarChannels">
+                <option value="all" selected>all</option>
+              </select>
+            </div>
+            <div>
+              <label for="calendarSort">Sort</label>
+              <select id="calendarSort">
+                <option value="asc" selected>asc</option>
+                <option value="desc">desc</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 10px;">
+            <div>
+              <label for="calendarFrom">From date</label>
+              <input id="calendarFrom" type="date" />
+            </div>
+            <div>
+              <label for="calendarTo">To date</label>
+              <input id="calendarTo" type="date" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 10px;">
+            <div>
+              <label for="calendarIncludeposted" style="margin-top: 12px;">Include posted</label>
+              <div style="margin-top: 6px;">
+                <input id="calendarIncludeposted" type="checkbox" />
+                <span class="hint" style="margin:0 0 0 8px;">includeposted=true</span>
+              </div>
+            </div>
+            <div>
+              <label>Paging</label>
+              <div class="row" style="margin-top: 8px;">
+                <input id="calendarLimit" type="number" min="1" max="200" value="10" />
+                <input id="calendarPage" type="number" min="1" value="1" />
+              </div>
+              <div class="hint">limit / page</div>
+            </div>
+          </div>
+
+          <button id="loadCalendarBtn" class="btn secondary" type="button" style="margin-top: 14px;">
+            Load Calendar
+          </button>
+
+          <div id="calendarList" style="margin-top: 14px;"></div>
+          <div id="calendarGrid" class="calendarGrid hidden"></div>
+        </div>
+
+        <div id="tabStats" class="hidden">
+          <div class="row" style="margin-top: 10px;">
+            <div>
+              <label for="statsChannels">Stats channels</label>
+              <select id="statsChannels">
+                <option value="all" selected>all</option>
+              </select>
+            </div>
+            <div>
+              <label for="statsSort">Sort</label>
+              <select id="statsSort">
+                <option value="asc" selected>asc</option>
+                <option value="desc">desc</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="loadStatsBtn" class="btn secondary" type="button" style="margin-top: 14px;">
+            Load Stats
+          </button>
+
+          <div id="statsList" style="margin-top: 14px;"></div>
+        </div>
+
+        <div id="tabManage" class="hidden">
+          <div class="row" style="margin-top: 10px;">
+            <div>
+              <label for="managePostId">Post ID</label>
+              <input id="managePostId" type="number" min="1" placeholder="e.g. 682" />
+            </div>
+            <div>
+              <label for="manageChannel">Channel</label>
+              <select id="manageChannel">
+                <option value="facebook" selected>facebook</option>
+                <option value="twitter">twitter</option>
+                <option value="linkedin">linkedin</option>
+                <option value="pinterest">pinterest</option>
+                <option value="instagram">instagram</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 10px;">
+            <button id="loadPostBtn" class="btn ghost" type="button" style="margin-top:0;">
+              Load
+            </button>
+            <button id="deletePostBtn" class="btn ghost" type="button" style="margin-top:0;">
+              Delete
+            </button>
+          </div>
+
+          <div id="manageEditor" class="hidden" style="margin-top: 14px;">
+            <label for="manageMessage">Message</label>
+            <textarea id="manageMessage" placeholder="Post message..." required></textarea>
+
+            <div class="row" style="margin-top: 10px;">
+              <div>
+                <label>Send mode</label>
+                <div style="margin-top: 8px; display:flex; gap: 18px; align-items:center;">
+                  <label style="display:inline; font-weight: 650;">
+                    <input type="radio" name="manageSendMode" value="immediate" checked />
+                    Immediate
+                  </label>
+                  <label style="display:inline; font-weight: 650;">
+                    <input type="radio" name="manageSendMode" value="scheduled" />
+                    Scheduled
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label for="manageScheduledDatetime">Scheduled datetime</label>
+                <div class="row" style="margin-top: 8px;">
+                  <input id="manageScheduledDate" type="date" />
+                  <input id="manageScheduledTime" type="time" />
+                </div>
+                <div class="hint">Used for `scheduleddatetime` when updating.</div>
+              </div>
+            </div>
+
+            <button id="updatePostBtn" class="btn secondary" type="button" style="margin-top: 14px;">
+              Update post
+            </button>
+          </div>
+
+          <div id="manageInfo" class="hint" style="margin-top: 10px;"></div>
+        </div>
+
+        <div id="tabFirecrawl" class="hidden">
+          <div class="row" style="margin-top: 10px;">
+            <div style="grid-column: span 2;">
+              <label for="firecrawlCode">Firecrawl</label>
+              <div class="hint">
+                Paste your Firecrawl scrape code here, then click Run. Use <span class="kbd">log()</span> to print output.
+                Use <span class="kbd">firecrawlAgent({ prompt, schema, model })</span> to call Firecrawl (API key stays on the server).
+              </div>
+              <div class="row" style="margin-top: 10px;">
+                <div>
+                  <label for="firecrawlPreset" style="margin-top: 0;">Presets</label>
+                  <select id="firecrawlPreset" style="margin-top: 6px;">
+                    <option value="phd_openings_chem" selected>PhD openings (Chemistry)</option>
+                    <option value="new_pi_no_website">New PIs (no lab website)</option>
+                  </select>
+                </div>
+                <div style="display:flex; align-items:flex-end;">
+                  <button id="loadFirecrawlPresetBtn" type="button" class="btn ghost" style="margin-top:0;">
+                    Load preset
+                  </button>
+                </div>
+              </div>
+              <textarea
+                id="firecrawlCode"
+                class="codeArea"
+                spellcheck="false"
+                placeholder="// Example (Firecrawl Agent):
+// const data = await firecrawlAgent({
+//   prompt: 'Extract 3 recent PhD openings in Chemistry posted in the last 15 days. Include application_link.',
+//   model: 'spark-1-pro',
+//   schema: { type: 'object', properties: { jobs: { type: 'array', items: { type: 'object' } } }, required: ['jobs'] }
+// });
+// log(data);
+"
+              ></textarea>
+              <div style="display:flex; gap: 10px; margin-top: 10px;">
+                <button id="runFirecrawlBtn" type="button" class="btn secondary" style="margin-top:0;">Run</button>
+                <button id="clearFirecrawlBtn" type="button" class="btn ghost" style="margin-top:0;">Clear</button>
+              </div>
+              <div id="firecrawlOutput" class="console" aria-label="Firecrawl output">Output will appear here…</div>
+              <div class="hint" style="margin-top: 10px;">
+                This executes code in your browser session. Only run code you trust. Progress logs will appear as
+                <span class="kbd">[progress] ...</span>.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tabAutomation" class="hidden">
+          <div class="row" style="margin-top: 10px;">
+            <div>
+              <label for="automationDays">Lookback days</label>
+              <input id="automationDays" type="number" min="1" max="7" value="2" />
+            </div>
+            <div>
+              <label for="automationLinkedinAccount">LinkedIn account</label>
+              <select id="automationLinkedinAccount">
+                <option value="">Loading LinkedIn accounts...</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 10px;">
+            <div>
+              <label for="automationModel">Firecrawl model</label>
+              <select id="automationModel">
+                <option value="spark-1-pro" selected>spark-1-pro</option>
+                <option value="spark-1-mini">spark-1-mini</option>
+              </select>
+            </div>
+            <div style="display:flex; align-items:flex-end; gap:10px;">
+              <button id="runAutomationBtn" type="button" class="btn secondary" style="margin-top:0;">Run now</button>
+              <button id="clearAutomationTimelineBtn" type="button" class="btn ghost" style="margin-top:0;">Clear timeline</button>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 10px;">
+            <div style="grid-column: span 2;">
+              <label for="automationTestCaption">Test caption (direct image test)</label>
+              <input
+                id="automationTestCaption"
+                type="text"
+                placeholder="Test image post from automation flow."
+                value="Test image post from automation flow."
+              />
+              <div style="display:flex; gap:10px; margin-top:10px;">
+                <button id="runAutomationTestPostBtn" type="button" class="btn ghost" style="margin-top:0;">
+                  Test post with image
+                </button>
+              </div>
+              <div class="hint">This skips Firecrawl and posts a test PNG directly to the selected LinkedIn account.</div>
+            </div>
+          </div>
+
+          <div class="jobTemplate">
+            <label for="jobTitleInput" style="margin-top:0;">Job title</label>
+            <input id="jobTitleInput" type="text" placeholder="PhD Opening in Chemistry" />
+
+            <div class="row">
+              <div>
+                <label for="jobInstitutionInput">Institution</label>
+                <input id="jobInstitutionInput" type="text" placeholder="University name" />
+              </div>
+              <div>
+                <label for="jobFocusInput">Research focus</label>
+                <input id="jobFocusInput" type="text" placeholder="Catalysis / Materials / Biochem" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="jobPostedDateInput">Posted date</label>
+                <input id="jobPostedDateInput" type="text" placeholder="2026-03-26" />
+              </div>
+              <div>
+                <label for="jobApplyLinkInput">Apply link</label>
+                <input id="jobApplyLinkInput" type="url" placeholder="https://..." />
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="jobLocationInput">Location</label>
+                <input id="jobLocationInput" type="text" placeholder="Global / City, Country" />
+              </div>
+              <div>
+                <label for="jobFundingInput">Funding / stipend</label>
+                <input id="jobFundingInput" type="text" placeholder="Fully funded / stipend info" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="jobDeadlineInput">Application deadline</label>
+                <input id="jobDeadlineInput" type="text" placeholder="Rolling / YYYY-MM-DD" />
+              </div>
+              <div>
+                <label for="jobKeywordsInput">Keywords</label>
+                <input id="jobKeywordsInput" type="text" placeholder="Catalysis, Materials, Spectroscopy" />
+              </div>
+            </div>
+
+            <label for="jobRequirementsInput">Requirements</label>
+            <textarea id="jobRequirementsInput" placeholder="MSc in Chemistry, publication record, references..."></textarea>
+
+            <label for="jobHighlightsInput">Highlights</label>
+            <textarea id="jobHighlightsInput" placeholder="Top lab, international collaboration, advanced facilities..."></textarea>
+
+            <label for="jobCaptionInput">Caption (will be posted)</label>
+            <textarea id="jobCaptionInput" placeholder="Generated caption appears here..."></textarea>
+
+            <div style="display:flex; gap:10px; margin-top:10px;">
+              <button id="refreshTemplatePreviewBtn" type="button" class="btn ghost" style="margin-top:0;">Refresh preview</button>
+              <button id="generatePngBtn" type="button" class="btn ghost" style="margin-top:0;">Generate PNG</button>
+              <button id="postAutomationBtn" type="button" class="btn" style="margin-top:0;">Post to LinkedIn</button>
+            </div>
+            <div class="hint" style="margin-top: 8px;">
+              Posting only happens when you click <span class="kbd">Post to LinkedIn</span>.
+            </div>
+
+            <div class="jobPreviewWrap">
+              <img id="jobTemplatePreviewImg" class="jobPreviewImg" alt="Job template preview" />
+              <div id="jobTemplatePreviewMeta" class="hint" style="margin-top:8px;">No preview yet.</div>
+            </div>
+          </div>
+
+          <div id="automationTimeline" class="timeline">
+            <div class="timelineItem">Ready. Click "Run now".</div>
+          </div>
+        </div>
+      </div>
+
+        <div id="status" class="status" aria-live="polite"></div>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
+
