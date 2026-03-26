@@ -998,6 +998,34 @@
             </div>
           </div>
 
+          <div class="jobTemplate" style="margin-top: 10px;">
+            <label style="margin-top:0;">Cron setup helper (Vercel)</label>
+            <div class="hint">Use this section to generate the cron config and test the cron endpoint from the app.</div>
+            <div class="row" style="margin-top: 8px;">
+              <div>
+                <label for="cronHourUtc" style="margin-top:0;">Hour (UTC)</label>
+                <input id="cronHourUtc" type="number" min="0" max="23" value="9" />
+              </div>
+              <div>
+                <label for="cronMinuteUtc" style="margin-top:0;">Minute (UTC)</label>
+                <input id="cronMinuteUtc" type="number" min="0" max="59" value="0" />
+              </div>
+            </div>
+            <div class="row" style="margin-top: 8px;">
+              <div>
+                <label for="cronSecretInput" style="margin-top:0;">CRON_SECRET (for test run)</label>
+                <input id="cronSecretInput" type="text" placeholder="Paste your CRON_SECRET to test endpoint..." />
+              </div>
+              <div style="display:flex; align-items:flex-end; gap:10px;">
+                <button id="cronGenerateBtn" type="button" class="btn ghost" style="margin-top:0;">Generate</button>
+                <button id="cronCopyBtn" type="button" class="btn ghost" style="margin-top:0;">Copy config</button>
+                <button id="cronRunNowBtn" type="button" class="btn secondary" style="margin-top:0;">Run cron now</button>
+              </div>
+            </div>
+            <div id="cronExpressionPreview" class="console">Cron expression: 0 9 * * *</div>
+            <div id="cronConfigPreview" class="console" style="margin-top:8px;">Generated config will appear here…</div>
+          </div>
+
           <div class="jobTemplate">
             <label for="jobTitleInput" style="margin-top:0;">Job title</label>
             <input id="jobTitleInput" type="text" placeholder="PhD Opening in Chemistry" />

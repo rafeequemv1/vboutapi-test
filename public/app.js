@@ -48,6 +48,14 @@ const clearAutomationTimelineBtn = document.getElementById("clearAutomationTimel
 const automationTestCaptionInput = document.getElementById("automationTestCaption");
 const runAutomationTestPostBtn = document.getElementById("runAutomationTestPostBtn");
 const automationTimeline = document.getElementById("automationTimeline");
+const cronHourUtcInput = document.getElementById("cronHourUtc");
+const cronMinuteUtcInput = document.getElementById("cronMinuteUtc");
+const cronSecretInput = document.getElementById("cronSecretInput");
+const cronGenerateBtn = document.getElementById("cronGenerateBtn");
+const cronCopyBtn = document.getElementById("cronCopyBtn");
+const cronRunNowBtn = document.getElementById("cronRunNowBtn");
+const cronExpressionPreview = document.getElementById("cronExpressionPreview");
+const cronConfigPreview = document.getElementById("cronConfigPreview");
 const jobTitleInput = document.getElementById("jobTitleInput");
 const jobInstitutionInput = document.getElementById("jobInstitutionInput");
 const jobFocusInput = document.getElementById("jobFocusInput");
@@ -398,6 +406,32 @@ function addAutomationTimelineItem(text) {
 function clearAutomationTimeline() {
   if (!automationTimeline) return;
   automationTimeline.innerHTML = "";
+}
+
+function buildCronConfigPreview() {
+  const hh = Math.max(0, Math.min(23, Number(cronHourUtcInput?.value || 9)));
+  const mm = Math.max(0, Math.min(59, Number(cronMinuteUtcInput?.value || 0)));
+  const cron = `${mm} ${hh} * * *`;
+  if (cronExpressionPreview) cronExpressionPreview.textContent = `Cron expression (UTC): ${cron}`;
+
+  const accountId = automationLinkedinAccountSelect?.value || "<AUTOMATION_CHANNEL_ID>";
+  const model = automationModelSelect?.value || "spark-1-mini";
+  const lookbackDays = Math.max(1, Math.min(7, Number(automationDaysInput?.value || 2)));
+
+  const preview = `vercel.json
+"crons": [
+  { "path": "/api/automation/run", "schedule": "${cron}" }
+]
+
+Environment Variables
+CRON_SECRET=<your-secret>
+AUTOMATION_CHANNEL=linkedin
+AUTOMATION_CHANNEL_ID=${accountId}
+AUTOMATION_LOOKBACK_DAYS=${lookbackDays}
+AUTOMATION_MODEL=${model}`;
+
+  if (cronConfigPreview) cronConfigPreview.textContent = preview;
+  return preview;
 }
 
 let automationDraft = null;
@@ -762,6 +796,49 @@ if (clearAutomationTimelineBtn) {
   });
 }
 
+if (cronGenerateBtn) {
+  cronGenerateBtn.addEventListener("click", () => {
+    buildCronConfigPreview();
+    addAutomationTimelineItem("Cron config generated.");
+  });
+}
+
+if (cronCopyBtn) {
+  cronCopyBtn.addEventListener("click", async () => {
+    try {
+      const text = buildCronConfigPreview();
+      await navigator.clipboard.writeText(text);
+      addAutomationTimelineItem("Cron config copied to clipboard.");
+    } catch {
+      addAutomationTimelineItem("Copy failed. Select and copy from the preview box.");
+    }
+  });
+}
+
+if (cronRunNowBtn) {
+  cronRunNowBtn.addEventListener("click", async () => {
+    try {
+      const secret = String(cronSecretInput?.value || "").trim();
+      if (!secret) throw new Error("Enter CRON_SECRET first.");
+      showStatus("Triggering cron endpoint...");
+      addAutomationTimelineItem("Calling /api/automation/run...");
+      const res = await fetch("/api/automation/run", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${secret}`,
+        },
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) throw new Error(data?.error || "Cron run failed");
+      addAutomationTimelineItem(`Cron run success: ${formatLogArg(data.result || data)}`);
+      showStatus("Cron run completed.");
+    } catch (err) {
+      addAutomationTimelineItem(`Cron run error: ${err?.message || String(err)}`);
+      showStatus("Cron run failed.");
+    }
+  });
+}
+
 if (runAutomationBtn) {
   runAutomationBtn.addEventListener("click", async () => {
     try {
@@ -994,6 +1071,7 @@ accountSelect.addEventListener("change", () => {
 // Kick off channel loading right away.
 loadConnectedChannels();
 renderJobTemplatePreview();
+buildCronConfigPreview();
 showTab("compose");
 
 function escapeHtml(s) {
