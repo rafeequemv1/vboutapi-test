@@ -8,6 +8,7 @@ dotenv.config();
 const { router: socialMediaRouter } = require("./routes/socialMedia");
 const { router: uploadRouter } = require("./routes/upload");
 const { router: firecrawlRouter } = require("./routes/firecrawl");
+const { router: automationRouter } = require("./routes/automation");
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use("/uploads", express.static(uploadsPath));
 app.use(socialMediaRouter);
 app.use(uploadRouter);
 app.use(firecrawlRouter);
+app.use(automationRouter);
 
 if (require.main === module) {
   const port = Number(process.env.PORT) || 3000;

@@ -446,106 +446,112 @@ function buildJobTemplateSvgPayload() {
   const requirements = jobRequirementsInput?.value?.trim() || "See official posting for full requirements.";
   const highlights = jobHighlightsInput?.value?.trim() || "Strong mentorship, modern facilities, publication opportunities.";
 
-  const titleLines = wrapSvgText(title, 34, 2);
-  const instLines = wrapSvgText(institution, 38, 2);
-  const focusLines = wrapSvgText(focus, 40, 2);
-  const linkLines = wrapSvgText(link, 42, 2);
-  const reqLines = wrapSvgText(requirements, 48, 3);
-  const hlLines = wrapSvgText(highlights, 48, 3);
-  const keyLines = wrapSvgText(keywords, 44, 2);
+  const titleLines = wrapSvgText(title, 28, 3);
+  const instLines = wrapSvgText(institution, 34, 2);
+  const focusLines = wrapSvgText(focus, 36, 2);
+  const linkLines = wrapSvgText(link, 40, 2);
+  const reqLines = wrapSvgText(requirements, 46, 3);
+  const hlLines = wrapSvgText(highlights, 46, 3);
+  const keyLines = wrapSvgText(keywords, 40, 2);
 
-  const width = 1200;
-  const height = 628;
+  const width = 1080;
+  const height = 1350;
   const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#eef4ff"/>
     </linearGradient>
   </defs>
   <rect width="${width}" height="${height}" fill="url(#bg)"/>
-  <rect x="52" y="52" width="1096" height="524" rx="28" fill="white" fill-opacity="0.97"/>
-  <rect x="52" y="52" width="1096" height="74" rx="28" fill="#e0ecff"/>
-  <text x="88" y="99" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" fill="#1e3a8a">Chemistry Career Alert</text>
-  <g transform="translate(868,66)">
-    <rect x="0" y="0" width="240" height="44" rx="12" fill="#ffffff" fill-opacity="0.92" stroke="#cbd5e1"/>
-    <rect x="10" y="8" width="28" height="28" rx="8" fill="#0f172a"/>
-    <path d="M16 22l8-4 8 4-8 4-8-4Z" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
-    <path d="M20 24v4c0 2 8 2 8 0v-4" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/>
-    <text x="48" y="28" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="700" fill="#0f172a">Upscholar</text>
+  <rect x="48" y="48" width="984" height="1254" rx="28" fill="#ffffff" stroke="#dbe4f3"/>
+
+  <rect x="48" y="48" width="984" height="140" rx="28" fill="#103b8c"/>
+  <text x="86" y="112" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="26" font-weight="600" fill="#dbeafe">Academic Opportunity</text>
+  <text x="86" y="148" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" fill="#bfdbfe">Curated by Upscholar</text>
+
+  <g transform="translate(742,78)">
+    <rect x="0" y="0" width="250" height="74" rx="16" fill="#ffffff" fill-opacity="0.98"/>
+    <rect x="12" y="12" width="50" height="50" rx="12" fill="#0f172a"/>
+    <path d="M22 38l15-8 15 8-15 8-15-8Z" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linejoin="round"/>
+    <path d="M30 43v8c0 4 14 4 14 0v-8" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+    <text x="76" y="46" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="28" font-weight="700" fill="#0f172a">Upscholar</text>
   </g>
-  <circle cx="1065" cy="89" r="17" fill="#1d4ed8"/>
-  <path d="M1057 89h16M1065 81v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+
+  <rect x="82" y="220" width="916" height="210" rx="20" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="112" y="272" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" fill="#64748b">Position</text>
   ${titleLines
     .map(
       (line, idx) =>
-        `<text x="88" y="${176 + idx * 52}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="48" font-weight="700" fill="#0f172a">${escapeXml(line)}</text>`
+        `<text x="112" y="${326 + idx * 54}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="50" font-weight="700" fill="#0f172a">${escapeXml(line)}</text>`
     )
     .join("")}
-  <rect x="82" y="218" width="1036" height="2" fill="#e2e8f0"/>
-  <rect x="82" y="236" width="670" height="326" rx="16" fill="#f8fafc"/>
-  <rect x="766" y="236" width="352" height="326" rx="16" fill="#f8fafc"/>
 
-  <circle cx="109" cy="268" r="12" fill="#1d4ed8"/>
-  <path d="M105 268h8M109 264v8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-  <text x="130" y="274" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" fill="#475569">Institution</text>
+  <rect x="82" y="456" width="596" height="500" rx="20" fill="#f8fafc" stroke="#e2e8f0"/>
+  <rect x="702" y="456" width="296" height="500" rx="20" fill="#f8fafc" stroke="#e2e8f0"/>
+
+  <circle cx="116" cy="504" r="14" fill="#1d4ed8"/>
+  <path d="M109 504h14M116 497v14" stroke="#fff" stroke-width="2.3" stroke-linecap="round"/>
+  <text x="142" y="512" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="26" fill="#475569">Institution</text>
   ${instLines
     .map(
       (line, idx) =>
-        `<text x="130" y="${307 + idx * 30}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="28" fill="#0f172a">${escapeXml(line)}</text>`
+        `<text x="142" y="${552 + idx * 36}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="33" fill="#0f172a">${escapeXml(line)}</text>`
     )
     .join("")}
-  <circle cx="109" cy="346" r="12" fill="#0ea5e9"/>
-  <path d="M103 346h12" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-  <text x="130" y="352" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" fill="#475569">Research Focus</text>
+  <circle cx="116" cy="612" r="14" fill="#0ea5e9"/>
+  <path d="M108 612h16" stroke="#fff" stroke-width="2.3" stroke-linecap="round"/>
+  <text x="142" y="620" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="26" fill="#475569">Research Focus</text>
   ${focusLines
     .map(
       (line, idx) =>
-        `<text x="130" y="${385 + idx * 30}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="28" fill="#0f172a">${escapeXml(line)}</text>`
+        `<text x="142" y="${660 + idx * 34}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="31" fill="#0f172a">${escapeXml(line)}</text>`
     )
     .join("")}
-  <circle cx="109" cy="424" r="12" fill="#059669"/>
-  <path d="M105 424l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="130" y="430" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" fill="#475569">Requirements</text>
+  <circle cx="116" cy="742" r="14" fill="#059669"/>
+  <path d="M110 742l4 4 7-8" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="142" y="750" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="26" fill="#475569">Requirements</text>
   ${reqLines
     .map(
       (line, idx) =>
-        `<text x="130" y="${463 + idx * 24}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" fill="#0f172a">${escapeXml(line)}</text>`
+        `<text x="142" y="${790 + idx * 30}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" fill="#0f172a">${escapeXml(line)}</text>`
     )
     .join("")}
 
-  <circle cx="109" cy="536" r="12" fill="#7c3aed"/>
-  <path d="M104 536h10" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-  <text x="130" y="542" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" fill="#475569">Highlights</text>
+  <circle cx="116" cy="880" r="14" fill="#7c3aed"/>
+  <path d="M108 880h16" stroke="#fff" stroke-width="2.3" stroke-linecap="round"/>
+  <text x="142" y="888" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="26" fill="#475569">Highlights</text>
   ${hlLines
     .map(
       (line, idx) =>
-        `<text x="130" y="${568 + idx * 22}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" fill="#0f172a">${escapeXml(line)}</text>`
+        `<text x="142" y="${928 + idx * 28}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="23" fill="#0f172a">${escapeXml(line)}</text>`
     )
     .join("")}
 
-  <text x="790" y="276" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" fill="#475569">Posted</text>
-  <text x="790" y="306" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" fill="#0f172a">${escapeXml(posted)}</text>
-  <text x="790" y="346" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" fill="#475569">Location</text>
-  <text x="790" y="376" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" fill="#0f172a">${escapeXml(location)}</text>
-  <text x="790" y="416" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" fill="#475569">Funding</text>
-  <text x="790" y="446" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="21" fill="#0f172a">${escapeXml(funding)}</text>
-  <text x="790" y="486" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" fill="#475569">Deadline</text>
-  <text x="790" y="516" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" fill="#0f172a">${escapeXml(deadline)}</text>
-  <text x="790" y="552" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" fill="#475569">Keywords</text>
+  <text x="726" y="512" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" fill="#64748b">Posted Date</text>
+  <text x="726" y="548" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="30" fill="#0f172a">${escapeXml(posted)}</text>
+  <text x="726" y="604" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" fill="#64748b">Location</text>
+  <text x="726" y="640" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="30" fill="#0f172a">${escapeXml(location)}</text>
+  <text x="726" y="696" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" fill="#64748b">Funding</text>
+  <text x="726" y="732" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" fill="#0f172a">${escapeXml(funding)}</text>
+  <text x="726" y="788" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" fill="#64748b">Deadline</text>
+  <text x="726" y="824" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="28" fill="#0f172a">${escapeXml(deadline)}</text>
+  <text x="726" y="880" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" fill="#64748b">Keywords</text>
   ${keyLines
     .map(
       (line, idx) =>
-        `<text x="790" y="${578 + idx * 22}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" fill="#334155">${escapeXml(line)}</text>`
+        `<text x="726" y="${916 + idx * 30}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="22" fill="#334155">${escapeXml(line)}</text>`
     )
     .join("")}
 
-  <text x="790" y="588" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" fill="#1d4ed8">Apply now</text>
+  <rect x="726" y="1032" width="246" height="58" rx="14" fill="#1d4ed8"/>
+  <text x="754" y="1068" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="28" font-weight="700" fill="#ffffff">Apply Now</text>
+  <text x="82" y="1240" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" fill="#64748b">Source verified via public listing. Please check official page for latest updates.</text>
   ${linkLines
     .map(
       (line, idx) =>
-        `<text x="880" y="${588 + idx * 18}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="#1d4ed8">${escapeXml(line)}</text>`
+        `<text x="726" y="${1134 + idx * 24}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" fill="#1d4ed8">${escapeXml(line)}</text>`
     )
     .join("")}
 </svg>`;
@@ -572,8 +578,8 @@ async function generateJobTemplatePngBlob() {
       i.src = svgUrl;
     });
     const canvas = document.createElement("canvas");
-    canvas.width = 1200;
-    canvas.height = 628;
+    canvas.width = 1080;
+    canvas.height = 1350;
     const ctx = canvas.getContext("2d");
     if (!ctx) throw new Error("Canvas not supported");
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
